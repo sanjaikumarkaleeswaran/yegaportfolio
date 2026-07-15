@@ -1,5 +1,5 @@
 import { motion, Variants } from 'framer-motion';
-import { Github, ExternalLink, ShieldAlert, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Github, ExternalLink, Sparkles, CheckCircle2, Cpu } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import MagneticButton from '../components/MagneticButton';
 import portfolioData from '../data/portfolio.json';
@@ -9,6 +9,31 @@ const PROJECT_IMAGES: Record<string, string> = {
   'sentiment-analysis': '/project_sentiment.png',
   'inventory-management': '/project_inventory.png',
   'employee-management': '/project_employee.png',
+};
+
+// Simulated high-tech live metrics for each prototype
+const PROJECT_METRICS: Record<string, { label1: string; val1: string; label2: string; val2: string; engine: string }> = {
+  'sentiment-analysis': {
+    label1: 'INFERENCE.LATENCY',
+    val1: '38ms',
+    label2: 'MODEL.ACCURACY',
+    val2: '94.6%',
+    engine: 'TRANSFORMER_BERT_V2'
+  },
+  'inventory-management': {
+    label1: 'DB.REPLICATION',
+    val1: '0.04s',
+    label2: 'INDEX.UTILIZATION',
+    val2: '98.8%',
+    engine: 'POSTGRESQL_NOSQL_SHARDS'
+  },
+  'employee-management': {
+    label1: 'API.CONCURRENCY',
+    val1: '8.4k/s',
+    label2: 'CACHE.HIT_RATIO',
+    val2: '99.2%',
+    engine: 'REDIS_NODE_CLUSTER'
+  }
 };
 
 export default function Projects() {
@@ -65,23 +90,33 @@ export default function Projects() {
       >
         {portfolioData.projects.map((project, idx) => {
           const isEven = idx % 2 === 0;
+          const metrics = PROJECT_METRICS[project.id] || {
+            label1: 'SYS.STATUS',
+            val1: 'STABLE',
+            label2: 'REFRESH_RATE',
+            val2: '60FPS',
+            engine: 'CORE_KERNEL'
+          };
 
           return (
             <motion.div key={project.id} variants={cardVariants}>
               <GlassCard
                 enableTilt={true}
-                tiltStrength={6}
-                glowColor="rgba(34, 211, 238, 0.1)"
-                className="p-6 md:p-8 lg:p-10 border border-slate-800/60"
+                tiltStrength={8}
+                glowColor="rgba(34, 211, 238, 0.15)"
+                className="p-6 md:p-8 lg:p-10 border border-slate-800/60 bg-slate-950/20 backdrop-blur-md relative overflow-hidden group"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                {/* Holographic grid scan lines on background of project card */}
+                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                   
                   {/* Left (or Right): Project Mockup Zoom */}
-                  <div className={`lg:col-span-6 relative overflow-hidden rounded-xl border border-slate-800/80 group ${
+                  <div className={`lg:col-span-6 relative overflow-hidden rounded-xl border border-slate-800/80 group/img ${
                     isEven ? 'order-1' : 'order-1 lg:order-2'
                   }`}>
                     {/* Glowing effect inside image container */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-cyan/10 to-accent-purple/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-accent-cyan/20 to-accent-purple/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
                     
                     <motion.div
                       whileHover={{ scale: 1.05 }}
@@ -91,14 +126,14 @@ export default function Projects() {
                       <img
                         src={PROJECT_IMAGES[project.id]}
                         alt={project.title}
-                        className="w-full h-full object-cover filter brightness-95 group-hover:brightness-100 transition-all duration-500"
+                        className="w-full h-full object-cover filter brightness-95 group-hover/img:brightness-100 transition-all duration-500"
                       />
                     </motion.div>
 
                     {/* Tech Badges floating over image */}
                     <div className="absolute top-3 left-3 z-20 flex gap-2 flex-wrap">
-                      <span className="text-[10px] font-bold font-mono tracking-wider bg-bg-dark/80 backdrop-blur-md px-3 py-1 border border-accent-cyan/30 rounded-full text-accent-cyan flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-                        <Sparkles size={10} /> Active Demo
+                      <span className="text-[10px] font-bold font-mono tracking-wider bg-bg-dark/95 backdrop-blur-md px-3 py-1 border border-accent-cyan/40 rounded-full text-accent-cyan flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                        <Sparkles size={10} /> Active Prototype
                       </span>
                     </div>
                   </div>
@@ -134,7 +169,7 @@ export default function Projects() {
                     </div>
 
                     {/* Tech Stack Tags */}
-                    <div className="flex flex-wrap gap-2 mb-8">
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {project.techStack.map((tech) => (
                         <span
                           key={tech}
@@ -143,6 +178,24 @@ export default function Projects() {
                           {tech}
                         </span>
                       ))}
+                    </div>
+
+                    {/* Live System Metrics HUD (reveals detail of the AI system) */}
+                    <div className="mb-8 p-3 rounded-lg bg-slate-950 border border-slate-900 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-mono text-slate-500 items-center">
+                      <div className="flex items-center gap-1.5 text-accent-cyan">
+                        <Cpu size={12} className="animate-spin-slow" />
+                        <span>ENGINE: {metrics.engine}</span>
+                      </div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-800" />
+                      <div>
+                        <span>{metrics.label1}: </span>
+                        <span className="text-white font-bold">{metrics.val1}</span>
+                      </div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-800" />
+                      <div>
+                        <span>{metrics.label2}: </span>
+                        <span className="text-white font-bold">{metrics.val2}</span>
+                      </div>
                     </div>
 
                     {/* Project Buttons */}

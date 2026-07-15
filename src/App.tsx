@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import CustomCursor from './components/CustomCursor';
 import BackgroundScene from './components/BackgroundScene';
 import Navbar from './components/Navbar';
+import OSOverlay from './components/OSOverlay';
 
 // Page Sections
 import Hero from './sections/Hero';
@@ -41,6 +42,9 @@ function App() {
 
   return (
     <div className="relative min-h-screen text-slate-100 selection:bg-accent-cyan/30 selection:text-white overflow-hidden">
+      {/* OS HUD Overlay */}
+      <OSOverlay />
+
       {/* Premium glowing custom cursor pointer & trail */}
       <CustomCursor />
 

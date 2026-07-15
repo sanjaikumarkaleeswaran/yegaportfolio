@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 import { 
-  Code, Server, Database, Brain, Terminal, GitBranch, Cpu, MessageSquare 
+  Code, Server, Database, Brain, Terminal, GitBranch, Cpu, MessageSquare, Sparkles
 } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import portfolioData from '../data/portfolio.json';
@@ -9,7 +10,7 @@ import portfolioData from '../data/portfolio.json';
 const getSkillIcon = (name: string) => {
   const n = name.toLowerCase();
   if (n.includes('react')) return <Code className="w-6 h-6 text-accent-cyan" />;
-  if (n.includes('node') || n.includes('express')) return <Server className="w-6 h-6 text-slate-300" />;
+  if (n.includes('node') || n.includes('express')) return <Server className="w-6 h-6 text-indigo-400" />;
   if (n.includes('mongo') || n.includes('sql')) return <Database className="w-6 h-6 text-accent-blue" />;
   if (n.includes('python')) return <Cpu className="w-6 h-6 text-yellow-400" />;
   if (n.includes('bert') || n.includes('roberta') || n.includes('nlp')) return <MessageSquare className="w-6 h-6 text-accent-purple" />;
@@ -19,7 +20,27 @@ const getSkillIcon = (name: string) => {
   return <Code className="w-6 h-6 text-slate-400" />;
 };
 
+// Descriptions mapping for each skill to render on hover
+const SKILL_DESCRIPTIONS: Record<string, string> = {
+  'React': 'High-performance interactive UIs & component lifecycle control.',
+  'Node': 'Asynchronous server-side architectures and runtime scaling.',
+  'Express': 'RESTful microservices, middleware chains & endpoint routing.',
+  'MongoDB': 'NoSQL document indexing, aggregation pipelines & data models.',
+  'SQL': 'Relational schema structures, complex joins & query optimization.',
+  'Python': 'Core language for tensor operations, model training & data pipelines.',
+  'BERT': 'Transformer encoders for bi-directional text sequence analysis.',
+  'DistilBERT': 'Compressed Transformer pipelines for low-latency inferences.',
+  'XLM-RoBERTa': 'Multi-lingual pre-trained architectures for cross-lingual tasks.',
+  'NLP': 'Tokenization, syntax trees, sentiment scoring & vector embeddings.',
+  'Deep Learning': 'Gradient descent, backpropagation, and multi-layer neural architectures.',
+  'Git': 'Distributed version control, branch trees & merge strategies.',
+  'GitHub': 'Repository hosting, collaborative pull requests & CI/CD automation.',
+  'Linux': 'Shell scripting, POSIX system configurations & server operations.'
+};
+
 export default function Skills() {
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,22 +50,24 @@ export default function Skills() {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    hidden: { opacity: 0, scale: 0.9, y: 30 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { type: 'spring', stiffness: 100, damping: 15 },
+      transition: { type: 'spring', stiffness: 90, damping: 14 },
     },
   };
 
   return (
-    <section id="skills" className="py-24 max-w-7xl mx-auto px-6 relative">
-      {/* Background neon glow */}
-      <div className="absolute left-10 top-1/4 w-[300px] h-[300px] bg-accent-purple/10 rounded-full blur-[140px] -z-10 bg-glow-pulse" />
+    <section id="skills" className="py-24 max-w-7xl mx-auto px-6 relative overflow-hidden">
+      
+      {/* Dynamic Glow Background */}
+      <div className="absolute left-10 top-1/4 w-[350px] h-[350px] bg-accent-purple/10 rounded-full blur-[140px] -z-10 bg-glow-pulse" />
+      <div className="absolute right-10 bottom-1/4 w-[300px] h-[300px] bg-accent-cyan/5 rounded-full blur-[120px] -z-10 bg-glow-pulse" />
 
       {/* Heading */}
-      <div className="text-center mb-16">
+      <div className="text-center mb-20 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,95 +87,134 @@ export default function Skills() {
         <div className="w-16 h-[2px] bg-gradient-to-r from-accent-cyan to-accent-purple mx-auto mt-4" />
       </div>
 
-      {/* Grid of Skills */}
+      {/* Animated Neural Connection Background (SVG lines with animated dashoffset) */}
+      <div className="absolute inset-0 top-40 bottom-10 opacity-30 pointer-events-none z-0 hidden lg:block">
+        <svg className="w-full h-full" viewBox="0 0 1000 600" fill="none">
+          <defs>
+            <linearGradient id="neuralGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#22d3ee" />
+              <stop offset="100%" stopColor="#8b5cf6" />
+            </linearGradient>
+          </defs>
+          {/* Interwoven neural curves */}
+          <path d="M100,100 C300,150 200,450 500,300 C700,200 600,500 900,450" stroke="url(#neuralGrad1)" strokeWidth="1.5" className="neural-link-path" />
+          <path d="M150,500 C400,400 300,100 600,250 C800,350 700,50 850,200" stroke="url(#neuralGrad1)" strokeWidth="1" className="neural-link-path opacity-60" />
+          <path d="M50,300 C350,250 500,50 750,400 C850,500 900,150 950,50" stroke="#8b5cf6" strokeWidth="1.2" className="neural-link-path" />
+        </svg>
+
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes neuralDash {
+            to {
+              stroke-dashoffset: -50;
+            }
+          }
+          .neural-link-path {
+            stroke-dasharray: 10, 10;
+            animation: neuralDash 4s linear infinite;
+          }
+        `}} />
+      </div>
+
+      {/* Grid of Interactive 3D Skill Chips */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10"
       >
-        {portfolioData.skills.map((skill) => {
-          const radius = 28;
-          const stroke = 3.5;
-          const normalizedRadius = radius - stroke * 2;
-          const circumference = normalizedRadius * 2 * Math.PI;
-          const strokeDashoffset = circumference - (skill.level / 100) * circumference;
-
+        {portfolioData.skills.map((skill, index) => {
+          const isHovered = hoveredSkill === skill.name;
+          
+          // Generate a slow floating translation offset for each chip out of phase
+          const floatDelay = index * 0.4;
+          
           return (
-            <motion.div key={skill.name} variants={itemVariants}>
+            <motion.div 
+              key={skill.name} 
+              variants={itemVariants}
+              animate={{ 
+                y: [0, -6, 0],
+              }}
+              transition={{
+                y: {
+                  repeat: Infinity,
+                  duration: 4.5,
+                  ease: 'easeInOut',
+                  delay: floatDelay
+                }
+              }}
+              onMouseEnter={() => setHoveredSkill(skill.name)}
+              onMouseLeave={() => setHoveredSkill(null)}
+              className="relative"
+            >
               <GlassCard
                 enableTilt={true}
                 tiltStrength={15}
                 glowColor={
                   skill.category === 'Frontend'
-                    ? 'rgba(34, 211, 238, 0.15)'
+                    ? 'rgba(34, 211, 238, 0.22)'
                     : skill.category === 'Backend' || skill.category === 'Database'
-                    ? 'rgba(59, 130, 246, 0.15)'
-                    : 'rgba(139, 92, 246, 0.15)'
+                    ? 'rgba(59, 130, 246, 0.22)'
+                    : 'rgba(139, 92, 246, 0.22)'
                 }
-                className="flex flex-col h-full items-center text-center p-6 justify-between group"
+                className="flex flex-col h-[180px] p-5 justify-between transition-all duration-300 border border-slate-800/60 bg-slate-950/20 backdrop-blur-md"
               >
-                {/* Header: Rotating Category Badge & Icon */}
-                <div className="w-full flex justify-between items-start mb-4">
-                  <span className="text-[9px] uppercase font-mono tracking-widest bg-slate-900/80 px-2 py-0.5 border border-slate-800 rounded text-slate-500">
+                {/* Header: Skill Category & Rotating Icon */}
+                <div className="w-full flex justify-between items-start">
+                  <span className="text-[8px] font-mono tracking-widest bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-slate-500 font-bold uppercase">
                     {skill.category}
                   </span>
                   
-                  {/* Rotating Icon wrapper */}
+                  {/* Icon Rotates Slowly on Auto, Fast on Hover */}
                   <motion.div
-                    className="p-2 rounded-lg bg-slate-900/50 border border-slate-800/40"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 10, duration: 0.8 }}
+                    className="p-2 rounded-lg bg-slate-900 border border-slate-800/80 shadow-[inset_0_0_8px_rgba(255,255,255,0.02)]"
+                    animate={{ rotate: isHovered ? 360 : 0 }}
+                    transition={{ type: 'spring', stiffness: 180, damping: 12 }}
                   >
                     {getSkillIcon(skill.name)}
                   </motion.div>
                 </div>
 
-                {/* Core Detail */}
-                <div className="my-4">
-                  <h3 className="text-lg font-bold text-white tracking-wide font-display">
+                {/* Body Details: Name & Expandable Description */}
+                <div className="flex-grow flex flex-col justify-center text-left my-2">
+                  <h3 className="text-base font-bold text-white tracking-wide font-display mb-1 flex items-center gap-1.5">
                     {skill.name}
+                    {isHovered && <Sparkles size={11} className="text-accent-cyan animate-pulse" />}
                   </h3>
+                  
+                  {/* Expand and reveal description when hovered */}
+                  <div className="h-10 overflow-hidden">
+                    <p className="text-[10px] md:text-xs text-slate-400 font-light leading-relaxed select-none">
+                      {isHovered 
+                        ? SKILL_DESCRIPTIONS[skill.name] || 'Active engineering module.'
+                        : `System node verified. Calibration level optimal.`
+                      }
+                    </p>
+                  </div>
                 </div>
 
-                {/* Footer: Circular Progress Indicator */}
-                <div className="relative flex items-center justify-center mt-2">
-                  <svg height={radius * 2} width={radius * 2} className="transform -rotate-90">
-                    {/* Background Track */}
-                    <circle
-                      stroke="rgba(255, 255, 255, 0.03)"
-                      fill="transparent"
-                      strokeWidth={stroke}
-                      r={normalizedRadius}
-                      cx={radius}
-                      cy={radius}
-                    />
-                    {/* Foreground Bar */}
-                    <motion.circle
-                      stroke={
+                {/* Footer: Energy Glow Bar */}
+                <div className="w-full mt-2">
+                  <div className="w-full h-1.5 bg-slate-900/60 rounded-full overflow-hidden border border-slate-800/40">
+                    <motion.div
+                      className={`h-full rounded-full ${
                         skill.category === 'Frontend'
-                          ? '#22d3ee'
+                          ? 'bg-gradient-to-r from-accent-cyan to-accent-blue shadow-[0_0_8px_#22d3ee]'
                           : skill.category === 'Backend' || skill.category === 'Database'
-                          ? '#3b82f6'
-                          : '#8b5cf6'
-                      }
-                      fill="transparent"
-                      strokeWidth={stroke}
-                      strokeDasharray={circumference + ' ' + circumference}
-                      style={{ strokeDashoffset }}
-                      r={normalizedRadius}
-                      cx={radius}
-                      cy={radius}
-                      initial={{ strokeDashoffset: circumference }}
-                      whileInView={{ strokeDashoffset }}
+                          ? 'bg-gradient-to-r from-accent-blue to-accent-purple shadow-[0_0_8px_#3b82f6]'
+                          : 'bg-gradient-to-r from-accent-purple to-pink-500 shadow-[0_0_8px_#8b5cf6]'
+                      }`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 1.5, ease: 'easeOut' }}
+                      transition={{ duration: 1.2, ease: 'easeOut' }}
                     />
-                  </svg>
-                  <span className="absolute text-[10px] font-bold font-mono text-slate-400 group-hover:text-white transition-colors duration-300">
-                    {skill.level}%
-                  </span>
+                  </div>
+                  <div className="flex justify-between items-center mt-1 text-[8px] font-mono text-slate-500 font-medium">
+                    <span>INDEX: {skill.level}%</span>
+                    <span>ACTIVE</span>
+                  </div>
                 </div>
 
               </GlassCard>
