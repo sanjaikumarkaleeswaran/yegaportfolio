@@ -1,0 +1,98 @@
+{
+  "personal": {
+    "name": "Dharanidharan A",
+    "title": "Creative Frontend Developer & AI Engineer",
+    "location": "Erode, Tamil Nadu",
+    "phone": "+91 8220832286",
+    "email": "dharanidharana18@gmail.com",
+    "github": "https://github.com/adharanidharan",
+    "linkedin": "https://linkedin.com/in/adharanidharan",
+    "summary": "Adaptable and detail-oriented Computer Science professional with strong foundations in software systems, AI, databases, and full-stack development. Passionate about creating intelligent applications and modern web experiences."
+  },
+  "education": [
+    {
+      "degree": "Master of Computer Applications (MCA)",
+      "institution": "Nandha Engineering College",
+      "duration": "2022 - 2024",
+      "grade": "CGPA 8.66",
+      "details": "Specialized in Artificial Intelligence, Advanced Web Technologies, and Cloud Databases. Developed deep learning models for NLP tasks."
+    },
+    {
+      "degree": "BSc Software Systems",
+      "institution": "Kongu Engineering College",
+      "duration": "2019 - 2022",
+      "grade": "CGPA 8.39",
+      "details": "Completed coursework in Software Engineering, Database Management Systems, Data Structures, and Python Programming."
+    }
+  ],
+  "skills": [
+    { "name": "React", "category": "Frontend", "level": 92 },
+    { "name": "Node", "category": "Backend", "level": 88 },
+    { "name": "Express", "category": "Backend", "level": 85 },
+    { "name": "MongoDB", "category": "Database", "level": 87 },
+    { "name": "SQL", "category": "Database", "level": 84 },
+    { "name": "Python", "category": "AI / Core", "level": 90 },
+    { "name": "BERT", "category": "AI / NLP", "level": 85 },
+    { "name": "DistilBERT", "category": "AI / NLP", "level": 83 },
+    { "name": "XLM-RoBERTa", "category": "AI / NLP", "level": 80 },
+    { "name": "NLP", "category": "AI / NLP", "level": 88 },
+    { "name": "Deep Learning", "category": "AI", "level": 86 },
+    { "name": "Git", "category": "Tools", "level": 90 },
+    { "name": "GitHub", "category": "Tools", "level": 92 },
+    { "name": "Linux", "category": "Tools", "level": 80 }
+  ],
+  "projects": [
+    {
+      "id": "sentiment-analysis",
+      "title": "Multimodal Sentiment Analysis Using Deep Learning",
+      "tagline": "AI / NLP Sentiment Classifier",
+      "overview": "A state-of-the-art deep learning model leveraging transformers (BERT, DistilBERT, XLM-RoBERTa) to analyze sentiment across multiple modalities—specifically fusing text embeddings and emoji representations on social media inputs for richer contextual analysis.",
+      "techStack": ["Python", "PyTorch", "Transformers", "BERT", "DistilBERT", "XLM-RoBERTa", "NLP", "Deep Learning"],
+      "features": [
+        "Hybrid text and emoji multimodal fusion pipeline",
+        "Fine-tuned Transformer models (BERT, XLM-RoBERTa, DistilBERT)",
+        "Real-time sentiment classification dashboard",
+        "High-accuracy predictions on social media datasets"
+      ],
+      "github": "https://github.com/adharanidharan/multimodal-sentiment-analysis",
+      "demo": "https://sentiment-analysis-demo.yega.io"
+    },
+    {
+      "id": "inventory-management",
+      "title": "Inventory Management System",
+      "tagline": "Full-Stack Inventory & Analytics Platform",
+      "overview": "A modern, high-performance SaaS web application that enables businesses to track inventory levels, sales metrics, and supply chains. Integrated with role-based authentication and interactive dashboard reports.",
+      "techStack": ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Chart.js"],
+      "features": [
+        "Real-time stock alerts and automatic reordering notifications",
+        "Interactive dashboard displaying sales, expenses, and profit margins",
+        "Secure role-based access control (Admin, Manager, Staff)",
+        "Full CSV/PDF export capabilities for audits"
+      ],
+      "github": "https://github.com/adharanidharan/inventory-management-system",
+      "demo": "https://inventory-demo.yega.io"
+    },
+    {
+      "id": "employee-management",
+      "title": "Employee Management System",
+      "tagline": "Enterprise Work Force Portal",
+      "overview": "An enterprise-grade platform built to streamline HR processes, automate payroll, track daily attendance, manage leaf logs, and monitor performance evaluations with a secure database backend.",
+      "techStack": ["React", "Node.js", "Express", "SQL", "Tailwind CSS", "JWT"],
+      "features": [
+        "Automated payroll calculation with tax deductions and bonuses",
+        "Live check-in/out attendance logging with location mapping",
+        "Annual performance evaluation scoring and manager reviews",
+        "Automated leaf approval workflow"
+      ],
+      "github": "https://github.com/adharanidharan/employee-management-system",
+      "demo": "https://employee-demo.yega.io"
+    }
+  ],
+  "publication": {
+    "type": "IEEE Conference Paper",
+    "title": "Multimodal Sentiment Analysis using Deep Learning and Transformers on Textual and Emojis based Social Media Inputs",
+    "citation": "Presented at IEEE International Conference, 2024",
+    "badge": "IEEE Explore Indexed",
+    "abstract": "Proposed and implemented a novel sentiment classification model integrating dual-channel processing of textual content and contextual emojis, showing a 4.5% accuracy increase over traditional single-channel text classifiers."
+  }
+}
